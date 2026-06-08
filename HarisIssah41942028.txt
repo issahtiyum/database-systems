@@ -1,0 +1,33 @@
+create table Price ( Price_Code int auto_increment primary key not null,
+    -> Price_Description varchar(100),
+    -> Price_Rentfee double,
+    -> Price_Dailylatefee double);
+Query OK, 0 rows affected (0.044 sec)
+
+create table Membership ( Mem_Num int primary key not null, Mem_Fname varchar(100) not null, Mem_Lname varchar(100) not null, Mem_Street varchar(100), Mem_City varchar(100), Mem_State varchar(5), Mem_Zip int, Mem_Balance int);
+Query OK, 0 rows affected (0.030 sec)
+
+create table Movie( Movie_Num int primary key not null, Movie_Name varchar(100) not null, Movie_Year int, Movie_Cost double, Movie_Genre varchar(100),Price_Code int, foreign key (Price_Code) references Price(Price_Code) );
+Query OK, 0 rows affected (0.031 sec)
+
+create table Video ( Vid_Num int primary key not null, Vid_Indate varchar(50), Movie_Num int, foreign key (Movie_Num) references Movie(Movie_Num) );
+Query OK, 0 rows affected (0.028 sec)
+
+create table Rental( Rent_Num int primary key not null, Rent_Date varchar(50), Mem_Num int, foreign key (Mem_Num) references Membership(Mem_Num) );
+Query OK, 0 rows affected (0.025 sec)
+
+create table DetailRental( Rent_Num int, Vid_Num int, Detail_Fee double, Detail_Duedate varchar(50), Detail_Returndate varchar(50),  Detail_Dailylatefee double, primary key(Rent_Num, Vid_Num), foreign Key (Rent_Num) references Rental(Rent_Num), foreign key (Vid_Num) references Video(Vid_Num) );
+Query OK, 0 rows affected (0.026 sec)
+
+show tables;
++-------------------------+
+| Tables_in_elitevideo_db |
++-------------------------+
+| DetailRental            |
+| Membership              |
+| Movie                   |
+| Price                   |
+| Rental                  |
+| Video                   |
++-------------------------+
+6 rows in set (0.002 sec)
