@@ -329,14 +329,14 @@ select Movie_Num, Movie_Name as Movie_Title, Movie_Cost from Movie where Movie_C
 
 
 Question 13
-select Movie_Num, Movie_Name as Movie_Title, Movie_Cost, Movie_Genre from Movie where Movie_Cost < 50 and (Movie_Genre = "ACTION" or  Movie_Genre="COMEDY");
+select Movie_Num, Movie_Name as Movie_Title, Movie_Cost, Movie_Genre from Movie where Movie_Cost < 50 and (Movie_Genre = "ACTION" or  Movie_Genre="COMEDY") order by Movie_Genre asc;
 +-----------+---------------+------------+-------------+
 | Movie_Num | Movie_Title   | Movie_Cost | Movie_Genre |
 +-----------+---------------+------------+-------------+
-|      1237 | Beatnik Fever |      29.95 | COMEDY      |
 |      1245 | Time to Burn  |      45.49 | ACTION      |
+|      1237 | Beatnik Fever |      29.95 | COMEDY      |
 +-----------+---------------+------------+-------------+
-2 rows in set (0.003 sec)
+2 rows in set (0.009 sec)
 
 
 
