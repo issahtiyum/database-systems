@@ -367,14 +367,13 @@ select Movie_Genre, count(Movie_Genre) as 'Number of Movies' from Movie group by
 
 
 Question 16
-select round(avg(Movie_Cost), 2) as 'Average Movie Cost' from Movie;
+select round(avg(Movie_Cost), 4) as 'Average Movie Cost' from Movie;
 +--------------------+
 | Average Movie Cost |
 +--------------------+
-|              51.13 |
+|            51.1275 |
 +--------------------+
-1 row in set (0.001 sec)
-
+1 row in set (0.003 sec)
 
 Question 17
 select Movie_Genre, round(avg(Movie_Cost), 2) as 'Average Cost' from Movie group by Movie_Genre;
@@ -391,7 +390,7 @@ select Movie_Genre, round(avg(Movie_Cost), 2) as 'Average Cost' from Movie group
 
 
 Question 18
-select Movie.Movie_Name as Movie_Title, Movie.Movie_Genre, Price.Price_Description, Price.Price_Rentfee from Movie join Price where Price.Price_Code = Movie.Price_Code;
+select Movie.Movie_Name as Movie_Title, Movie.Movie_Genre, Price.Price_Description, Price.Price_Rentfee from Movie join Price on Price.Price_Code = Movie.Price_Code;
 +----------------------------+-------------+-------------------+---------------+
 | Movie_Title                | Movie_Genre | Price_Description | Price_Rentfee |
 +----------------------------+-------------+-------------------+---------------+
@@ -408,7 +407,7 @@ select Movie.Movie_Name as Movie_Title, Movie.Movie_Genre, Price.Price_Descripti
 
 
 Question 19
-select Movie.Movie_Genre, avg(Price.Price_Rentfee) as 'Average Rental Fee' from Movie join Price where Price.Price_Code = Movie.Price_Code group by Movie.Movie_Genre;
+select Movie.Movie_Genre, avg(Price.Price_Rentfee) as 'Average Rental Fee' from Movie join Price on Price.Price_Code = Movie.Price_Code group by Movie.Movie_Genre;
 +-------------+--------------------+
 | Movie_Genre | Average Rental Fee |
 +-------------+--------------------+
@@ -422,7 +421,7 @@ select Movie.Movie_Genre, avg(Price.Price_Rentfee) as 'Average Rental Fee' from 
 
 
 Question 20
-select Movie.Movie_Name as Movie_Title, round(Movie.Movie_Cost / Price.Price_Rentfee, 2) as 'Breakeven Rentals' from Movie join Price where Price.Price_Code = Movie.Price_Code;
+select Movie.Movie_Name as Movie_Title, round(Movie.Movie_Cost / Price.Price_Rentfee, 2) as 'Breakeven Rentals' from Movie join Price on Price.Price_Code = Movie.Price_Code;
 +----------------------------+-------------------+
 | Movie_Title                | Breakeven Rentals |
 +----------------------------+-------------------+
@@ -484,7 +483,7 @@ select Movie.Movie_Name as Movie_Title, Price.Price_Description, Price.Price_Ren
 
 
 Question 24
-select Membership.Mem_Num, Membership.Mem_Fname, Membership.Mem_Lname, Membership.Mem_Balance from Membership join Rental on Rental.Mem_Num = Membership.Mem_Num;
+select distinct Membership.Mem_Num, Membership.Mem_Fname, Membership.Mem_Lname, Membership.Mem_Balance from Membership join Rental on Rental.Mem_Num = Membership.Mem_Num;
 +---------+-----------+-----------+-------------+
 | Mem_Num | Mem_Fname | Mem_Lname | Mem_Balance |
 +---------+-----------+-----------+-------------+
@@ -492,14 +491,11 @@ select Membership.Mem_Num, Membership.Mem_Fname, Membership.Mem_Lname, Membershi
 |     103 | Curt      | Knight    |           6 |
 |     104 | Jamal     | Melendez  |           0 |
 |     105 | Iva       | Mcclain   |          15 |
-|     105 | Iva       | Mcclain   |          15 |
 |     107 | Rosario   | Elliott   |           5 |
 |     110 | Lewis     | Rosales   |           0 |
 |     111 | Stacy     | Mann      |           8 |
-|     111 | Stacy     | Mann      |           8 |
 +---------+-----------+-----------+-------------+
-9 rows in set (0.001 sec)
-
+7 rows in set (0.007 sec)
 
 
 Question 25
@@ -548,7 +544,6 @@ select Rental.Rent_Num, Rental.Rent_Date, Movie.Movie_Name as Movie_Title, Detai
 
 
 Question 28.
-select Movie_Num, Movie_Genre, round(avg(Movie_Cost) over (partition by Movie_Genre), 2) as 'Average Cost', Movie_Cost, round(((Movie_Cost - avg(Movie_Cost) over (partition by Movie_Genre)) / avg(Movie_Cost) over (partition by Movie_Genre) * 100), 2) as 'Percent Difference' from Movie;
 select Movie_Num, Movie_Genre, round(avg(Movie_Cost) over (partition by Movie_Genre), 2) as 'Average Cost', Movie_Cost, round(((Movie_Cost - avg(Movie_Cost) over (partition by Movie_Genre)) / avg(Movie_Cost) over (partition by Movie_Genre) * 100), 2) as 'Percent Difference' from Movie;
 +-----------+-------------+--------------+------------+--------------------+
 | Movie_Num | Movie_Genre | Average Cost | Movie_Cost | Percent Difference |
